@@ -113,13 +113,14 @@ $time_req = time()-60*$set['diff_minutes'];
 		$ret['data'][$d_pfx.'comm']['info'] = "Comments";
 		$ret['data'][$d_pfx.'cal']['label'] = "Calendar actions";
 		$ret['data'][$d_pfx.'cal']['info'] = "Calendar actions/operations";
-		$ret['data'][$d_pfx.'other']['label'] = "Other actions";
-		$ret['data'][$d_pfx.'other']['info'] = "Other actions";
-		//------------ Applications enabled ------------/
+		//------------ Applications enabled ------------//
 		$ret['data'][$d_pfx.'talk']['label'] = "Talk events";
 		$ret['data'][$d_pfx.'talk']['info'] = "Nextcloud Talk events";
 		$ret['data'][$d_pfx.'antivirus']['label'] = "Virus detect";
 		$ret['data'][$d_pfx.'antivirus']['info'] = "Virus Detections by files_antivirus";
+		//------------------ Others --------------------//
+		$ret['data'][$d_pfx.'other']['label'] = "Other actions";
+		$ret['data'][$d_pfx.'other']['info'] = "Other actions";
 
 		mysqli_set_charset($l, "utf8");
 		$r = mysqli_query($l, " SELECT * FROM ".mysqli_real_escape_string($l, $set['db_db']).".".mysqli_real_escape_string($l, $set['db_prefix'])."activity
