@@ -55,8 +55,8 @@ $time_req = time()-60*$set['diff_minutes'];
 		$ret['data']['users_oos']['info'] = "Clients on other OS";
 
 		mysqli_set_charset($l, "utf8");
-		$r = mysqli_query($l, "SELECT * FROM ".mysqli_real_escape($l, $set['db_db']).".".mysqli_real_escape($l, $set['db_prefix'])."authtoken 
-								WHERE `last_activity` >= ".mysqli_real_escape($l, $time_req)." 
+		$r = mysqli_query($l, "SELECT * FROM ".mysqli_real_escape_string($l, $set['db_db']).".".mysqli_real_escape_string($l, $set['db_prefix'])."authtoken 
+								WHERE `last_activity` >= ".mysqli_real_escape_string($l, $time_req)." 
 								ORDER BY `last_activity` DESC ;"
 							);
 		while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
