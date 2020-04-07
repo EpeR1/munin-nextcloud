@@ -36,7 +36,7 @@ $time_req = time()-60*$set['diff_minutes'];
 		$ret['g_order'] = "nxt_users_all nxt_users_web nxt_users_app";
 
 		// skeleton for returning
-		foreach(array('users_all', 'users_web', 'users_app', 'users_win', 'users_linux', 'users_oos') as $key => $val){	
+		foreach(array('users_all', 'users_web', 'users_app','users_flash') as $key => $val){	
 			$ret['data'][$val]['value'] = 0;
 			$ret['data'][$val]['draw'] =  "LINE1.2";
 			$ret['data'][$val]['type'] = "GAUGE";
@@ -47,12 +47,9 @@ $time_req = time()-60*$set['diff_minutes'];
 		$ret['data']['users_web']['info'] = "Clients logged in by webpage.";
 		$ret['data']['users_app']['label'] = "By App";
 		$ret['data']['users_app']['info'] = "Connected clients with an app.";
-		$ret['data']['users_win']['label'] = "Windows";
-		$ret['data']['users_win']['info'] = "Clients on windows";
-		$ret['data']['users_linux']['label'] = "Linux";
-		$ret['data']['users_linux']['info'] = "Clients on Linux";
-		$ret['data']['users_oos']['label'] = "Other OS";
-		$ret['data']['users_oos']['info'] = "Clients on other OS";
+		$ret['data']['users_flash']['label'] = "Web(<5min)";
+		$ret['data']['users_flash']['info'] = "Rapid web users (succesfully logged out in less than 5 minutes)";
+
 
 		mysqli_set_charset($l, "utf8");
 		$r = mysqli_query($l, "SELECT * FROM ".mysqli_real_escape_string($l, $set['db_db']).".".mysqli_real_escape_string($l, $set['db_prefix'])."authtoken 
@@ -70,15 +67,18 @@ $time_req = time()-60*$set['diff_minutes'];
 				$ret['data']['users_app']['value']++;
 			}
 			$ret['data']['users_all']['value']++; 					//everybody
-			
-			if(stripos($row['name'], 'windows') !== false){			//If "windows" in User Agent
-				$ret['data']['users_win']['value']++;
-			} else if(stripos($row['name'], 'linux') !== false){	//If "Linux" in User Agent
-				$ret['data']['users_linux']['value']++;
-			} else {												//Other OS
-				$ret['data']['users_oos']['value']++;
-			}
 		}
+		@mysqli_free_result($r);
+
+		$r = mysqli_query($l, "SELECT COUNT(*) AS `cnt` FROM ".mysqli_real_escape_string($l, $set['db_db']).".".mysqli_real_escape_string($l, $set['db_prefix'])."preferences 
+								WHERE `configkey`='lastLogin' AND `configvalue` >= ".mysqli_real_escape_string($l, $time_req)." AND `userid` NOT IN (
+									SELECT `uid` FROM ".mysqli_real_escape_string($l, $set['db_db']).".".mysqli_real_escape_string($l, $set['db_prefix'])."authtoken  
+										WHERE `last_activity` >= ".mysqli_real_escape_string($l, $time_req)." AND `type` = 0
+								);"
+							);
+		$ret['data']['users_flash']['value'] = mysqli_fetch_array($r, MYSQLI_ASSOC)['cnt'];
+		$ret['data']['users_all']['value'] += $ret['data']['users_flash']['value'];
+
 		@mysqli_free_result($r);
 		return $ret;
 	}
