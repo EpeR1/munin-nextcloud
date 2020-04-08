@@ -47,7 +47,7 @@ $time_req = time()-60*$set['diff_minutes'];
 		$ret['data']['users_web']['info'] = "Clients logged in by webpage.";
 		$ret['data']['users_app']['label'] = "By App";
 		$ret['data']['users_app']['info'] = "Connected clients with an app.";
-		$ret['data']['users_flash']['label'] = "Web (flash)";
+		$ret['data']['users_flash']['label'] = "Web/rapid";
 		$ret['data']['users_flash']['info'] = "Rapid web users (Successfully logged in, and out, in less than 5 minutes.)";
 
 
