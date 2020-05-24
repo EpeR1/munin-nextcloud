@@ -48,7 +48,7 @@ Edit the **/etc/munin/munin.conf** with the following options:
       address 127.0.0.1       #This plugin uses a wirtual munin node on localhost,
       use_node_name no        #but don't need to use the node name.
 
-
+  
 Edit the **/etc/munin/plugin-conf.d/munin-node**, and use the following configurations:  
 
     [nextcloud_munin]
