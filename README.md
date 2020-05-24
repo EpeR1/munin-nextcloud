@@ -44,6 +44,7 @@ Number of Events/Actions
 
 Edit the **/etc/munin/munin.conf** with the following options:  
 
+
     [nextcloud.company.com]   #Nextcloud server hostname
       address 127.0.0.1       #This plugin uses a wirtual munin node on localhost,
       use_node_name no        #but don't need to use the node name.
