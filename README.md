@@ -12,10 +12,10 @@
 ## Usage 
 
 Number of Active Clients  
-![users](http://git.bmrg.hu/images/munin-unifi.git/nxt_act_users.png)  
+![users](http://git.bmrg.hu/images/munin-nextcloud.git/nxt_act_users.png)  
 
 Number of Events/Actions  
-![events](http://git.bmrg.hu/images/munin-unifi.git/nxt_events.png)  
+![events](http://git.bmrg.hu/images/munin-nextcloud.git/nxt_events.png)  
 
 
 
